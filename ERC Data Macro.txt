@@ -1,0 +1,50 @@
+' ERC_Data Macro
+'
+
+'
+Dim mainWorkBook As Workbook
+ Set mainWorkBook = ActiveWorkbook
+ 
+ 'ActiveWorkbook.Sheets.Add After:=Worksheets(Worksheets.Count)
+' ActiveWorkbook.Sheets(Worksheets.Count).Name = "ERC_Data"
+ 
+    Sheets("ERC_DATA").Select
+    Cells.Select
+    Application.CutCopyMode = False
+    Selection.ClearContents
+    Range("A1").Select
+ 
+    Sheets("CHECKIN_DATA_STATUS").Select
+    Rows("1:1").Select
+    Selection.AutoFilter
+    ActiveSheet.Range("$A$1:$S$1142").AutoFilter Field:=12, Criteria1:= _
+        "SUCCESS"
+    Cells.Select
+    Selection.Copy
+    Sheets("ERC_DATA").Select
+    ActiveSheet.Paste
+    Rows("1:1").Select
+    Application.CutCopyMode = False
+    Selection.AutoFilter
+    ActiveSheet.Range("$A$1:$S$1022").AutoFilter Field:=1, Criteria1:="PEPart"
+    Cells.Select
+    Selection.ClearContents
+    Range("E3").Select
+    
+    
+ ' Add First Line
+    
+    Sheets("CHECKIN_DATA_STATUS").Select
+    Rows("1:1").Select
+    Selection.Copy
+    Sheets("ERC_Data").Select
+    Rows("1:1").Select
+    Selection.Insert Shift:=xlDown
+    Application.CutCopyMode = False
+    ActiveWorkbook.Save
+    
+' Remove Blank Spaces
+
+    Columns("A").SpecialCells(xlCellTypeBlanks).EntireRow.Delete
+    
+End Sub

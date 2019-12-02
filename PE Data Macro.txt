@@ -1,0 +1,30 @@
+Sub PE_Data()
+'
+' PE_Data Macro
+'
+
+'
+ Dim mainWorkBook As Workbook
+ Set mainWorkBook = ActiveWorkbook
+ 
+' ActiveWorkbook.Sheets.Add After:=Worksheets(Worksheets.Count)
+ 'ActiveWorkbook.Sheets(Worksheets.Count).Name = "PE_DATA"
+ 
+    Sheets("PE_DATA").Select
+    Cells.Select
+    Application.CutCopyMode = False
+    Selection.ClearContents
+    Range("A1").Select
+    
+    Sheets("CHECKIN_DATA_STATUS").Select
+    Rows("1:1").Select
+    Selection.AutoFilter
+    ActiveSheet.Range("$A$1:$S$1142").AutoFilter Field:=1, Criteria1:="PEPart"
+    ActiveSheet.Range("$A$1:$S$1142").AutoFilter Field:=12, Criteria1:= _
+        "SUCCESS"
+    Cells.Select
+    Selection.Copy
+    Sheets("PE_DATA").Select
+    Range("A1").Select
+    ActiveSheet.Paste
+End Sub

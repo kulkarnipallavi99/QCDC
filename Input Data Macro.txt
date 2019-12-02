@@ -1,0 +1,79 @@
+Sub INPUT_DATA()
+'
+' INPUT_DATA Macro
+'
+
+' CHECKIN DATA
+ Dim mainWorkBook As Workbook
+ Set mainWorkBook = ActiveWorkbook
+ 
+ ActiveWorkbook.Sheets.Add After:=Worksheets(Worksheets.Count)
+ ActiveWorkbook.Sheets(Worksheets.Count).Name = "CHECKIN_DATA_STATUS"
+ 
+    Sheets("CHECKIN_DATA_STATUS").Select
+    With ActiveSheet.QueryTables.Add(Connection:= _
+        "TEXT;E:\PALLAVI\macro\CHECKIN_DATA_STATUS.csv", Destination:=Range("$A$1"))
+'        .CommandType = 0
+        .Name = "CHECKIN_DATA_STATUS"
+        .FieldNames = True
+        .RowNumbers = False
+        .FillAdjacentFormulas = False
+        .PreserveFormatting = True
+        .RefreshOnFileOpen = False
+        .RefreshStyle = xlInsertDeleteCells
+        .SavePassword = False
+        .SaveData = True
+        .AdjustColumnWidth = True
+        .RefreshPeriod = 0
+        .TextFilePromptOnRefresh = False
+        .TextFilePlatform = 437
+        .TextFileStartRow = 1
+        .TextFileParseType = xlDelimited
+        .TextFileTextQualifier = xlTextQualifierDoubleQuote
+        .TextFileConsecutiveDelimiter = False
+        .TextFileTabDelimiter = True
+        .TextFileSemicolonDelimiter = True
+        .TextFileCommaDelimiter = True
+        .TextFileSpaceDelimiter = False
+        .TextFileColumnDataTypes = Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+        .TextFileTrailingMinusNumbers = True
+        .Refresh BackgroundQuery:=False
+    End With
+    
+' WELD Data
+
+ ActiveWorkbook.Sheets.Add After:=Worksheets(Worksheets.Count)
+ ActiveWorkbook.Sheets(Worksheets.Count).Name = "WELD_ERC_DATA"
+    
+    
+    Sheets("WELD_ERC_DATA").Select
+    Range("A1").Select
+    With ActiveSheet.QueryTables.Add(Connection:= _
+        "TEXT;E:\PALLAVI\macro\WELD_ERC_DATA.csv", Destination:=Range("$A$1"))
+'        .CommandType = 0
+        .Name = "WELD_ERC_DATA"
+        .FieldNames = True
+        .RowNumbers = False
+        .FillAdjacentFormulas = False
+        .PreserveFormatting = True
+        .RefreshOnFileOpen = False
+        .RefreshStyle = xlInsertDeleteCells
+        .SavePassword = False
+        .SaveData = True
+        .AdjustColumnWidth = True
+        .RefreshPeriod = 0
+        .TextFilePromptOnRefresh = False
+        .TextFilePlatform = 437
+        .TextFileStartRow = 1
+        .TextFileParseType = xlDelimited
+        .TextFileTextQualifier = xlTextQualifierDoubleQuote
+        .TextFileConsecutiveDelimiter = False
+        .TextFileTabDelimiter = True
+        .TextFileSemicolonDelimiter = True
+        .TextFileCommaDelimiter = True
+        .TextFileSpaceDelimiter = False
+        .TextFileColumnDataTypes = Array(1, 1, 1, 1, 1, 1, 1)
+        .TextFileTrailingMinusNumbers = True
+        .Refresh BackgroundQuery:=False
+    End With
+End Sub

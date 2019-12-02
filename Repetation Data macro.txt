@@ -1,0 +1,94 @@
+Sub LoadArray2()
+    Dim strArray() As String
+    Dim strArray2() As String
+     Dim strArray3() As String
+    Dim TotalRows As Long
+    Dim i As Long
+    Dim j As Long
+     Dim m As Long
+    Dim k As Integer
+    Dim arr1 As Variant
+    Dim arr2 As Variant
+    
+
+    TotalRows = Rows(Rows.Count).End(xlUp).Row
+    ReDim strArray(1 To TotalRows)
+    ReDim strArray2(1 To TotalRows)
+    
+    Dim str As String
+    Dim LArray() As String
+    Dim FinalPartNum As String
+    
+    For i = 1 To TotalRows
+        strArray(i) = Cells(i, 1).Value
+        LArray = Split(strArray(i), "_")
+        FinalPartNum = LArray(0) & "_" & LArray(1) & "_" & LArray(2)
+        strArray2(i) = FinalPartNum
+         Next i
+         arr1 = strArray2
+         arr2 = RemoveDupesColl(arr1)
+         
+           ReDim strArray3(1 To UBound(arr2))
+    
+      For i = 1 To UBound(arr2)
+    
+        strArray3(i) = CStr(arr2(i))
+        Cells(i, 19) = strArray3(i)
+      Next
+         
+         
+         Dim ab As Integer
+         
+        For i = 1 To UBound(arr2)
+         ab = IsInArray(arr2(i), arr1)
+         Cells(i, 20) = ab
+         Next
+        
+
+End Sub
+
+
+Function RemoveDupesColl(MyArray As Variant) As Variant
+    Dim i As Long
+    Dim arrColl As New Collection
+    Dim arrDummy() As Variant
+    Dim arrDummy1() As Variant
+    Dim item As Variant
+    ReDim arrDummy1(LBound(MyArray) To UBound(MyArray))
+
+    For i = LBound(MyArray) To UBound(MyArray) 'convert to string
+        arrDummy1(i) = CStr(MyArray(i))
+    Next i
+    On Error Resume Next
+    For Each item In arrDummy1
+       arrColl.Add item, item
+    Next item
+    Err.Clear
+    ReDim arrDummy(LBound(MyArray) To arrColl.Count + LBound(MyArray) - 1)
+    i = LBound(MyArray)
+    For Each item In arrColl
+       arrDummy(i) = item
+       i = i + 1
+    Next item
+    RemoveDupesColl = arrDummy
+End Function
+Private Function IsInArray(valToBeFound As Variant, arr As Variant) As Integer
+Dim element As Variant
+Dim cnt As Integer
+IsInArray = 0
+On Error GoTo IsInArrayError: 'array is empty
+    For Each element In arr
+        If element = valToBeFound Then
+            IsInArray = IsInArray + 1
+           ' Exit Function
+        End If
+    Next element
+Exit Function
+IsInArrayError:
+On Error GoTo 0
+IsInArray = IsInArray
+End Function
+
+
+
+
